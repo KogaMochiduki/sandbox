@@ -74,7 +74,7 @@ func main() {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	go s.ListenAndServe()
+	go log.Fatal(s.ListenAndServe())
 
 	// Wait for all goroutines to complete.
 	wg.Wait()
@@ -89,4 +89,5 @@ func (rh *reportHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	sleepDuration := time.Duration(100+rand.Intn(100)) * time.Millisecond
 	time.Sleep(sleepDuration)
 	log.Printf("Report recieved")
+	fmt.Fprint(w, "Report recieved")
 }
